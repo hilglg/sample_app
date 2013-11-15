@@ -1,0 +1,51 @@
+<h1>Accounts</h1>
+
+<table style="border:1px;">
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th onclick='clickCol()'>Account</th>
+      <th>Name</th>
+      <th>Site</th>
+      <th>Accounttype</th>
+      <th>Mainphone</th>
+      <th>Mainfax</th>
+      <th> </th>
+      <th> </th>
+      <th>
+        <li id="fat-menu" class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Menu <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to 'New Account', new_account_path %></li>
+            <li><a href="javascript:void(0);" onclick="return editAccount(this);">Edit Account</a></li>
+          </ul>
+        </li>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%# provide(:i, new integer(1)) %>
+    <% @accounts.each_with_index do |account, i| %>
+      <tr>
+        <td onclick="chooseRow(this)"><%= (i+1)  %></td>
+        <td><%= account.Account %></td>
+        <td><%= account.Name %></td>
+        <td><%= account.Site %></td>
+        <td><%= account.AccountType %></td>
+        <td><%= account.MainPhone %></td>
+        <td><%= account.MainFax %></td>
+        <td><%= link_to 'Show', account %></td>
+        <td><%= link_to 'Edit', edit_account_path(account) %></td>
+        <td><%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%# @i++ %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Account', new_account_path %>
