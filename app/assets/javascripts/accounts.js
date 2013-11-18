@@ -3,28 +3,28 @@ function clickCol() {
 
 }
 
-var iSelectedIndex =-1;
+var oldSelectedObj = null;
 function chooseRow(obj) {
-	var table = obj.parentElement.parentElement;
-
-	var oldSelectedIndex = iSelectedIndex;
+	var objSelectedObj = obj;
 	
-	iSelectedIndex = obj.innerHTML;
-
-	if (obj.parentElement.style.background == "green") {
-		obj.parentElement.style.background ="";
+	//objSelectedObj = obj.innerHTML;
+//alert(objSelectedObj.style.background);
+	if (objSelectedObj.style.background.indexOf("green") !=-1) {
+		objSelectedObj.style.background ="";
 	} else {
-		if (oldSelectedIndex != -1) {
-			table.rows(oldSelectedIndex-1).style.background="";	
+		if (oldSelectedObj != null) {
+			oldSelectedObj.style.background="";	
 		}
-		obj.parentElement.style.background ="green";
+		objSelectedObj.style.background ="green";
 	}
+
+	oldSelectedObj = objSelectedObj;
 }
 
 function editAccount(obj){
-	if (iSelectedIndex == -1){
+	if (oldSelectedObj == null){
 		alert("Please select target row to edit");
 	} else {
-		obj.href= "/accounts/"+iSelectedIndex+"/edit";
+		obj.href= "/accounts/"+oldSelectedObj.innerHTML+"/edit";
 	}
 }

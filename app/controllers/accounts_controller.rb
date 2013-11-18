@@ -24,6 +24,13 @@ puts 'haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
   # GET /accounts/1/edit
   def edit
     puts '**********edit start in accounts controller'
+    puts 'params[:id] is ' + params[:id]
+    @accounts = Account.all
+    #redirect_to @accounts
+    #render 'index'
+    respond_to do |format|
+      format.html {redirect_to action: 'index', id: params[:id]}
+    end
   end
 
   # POST /accounts
@@ -49,7 +56,7 @@ puts 'haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     puts '**********update start in accounts controller'
     respond_to do |format|
       if @account.update(account_params)
-        format.html { redirect_to @account, notice: 'Account was successfully updated.' }
+        format.html { redirect_to action: 'index', notice: 'Account was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

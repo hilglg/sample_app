@@ -1,5 +1,4 @@
 <h1>Accounts</h1>
-
 <table style="border:1px;">
   <thead>
     <tr>
@@ -27,21 +26,34 @@
   </thead>
 
   <tbody>
-    <%# provide(:i, new integer(1)) %>
     <% @accounts.each_with_index do |account, i| %>
-      <tr>
-        <td onclick="chooseRow(this)"><%= (i+1)  %></td>
-        <td><%= account.Account %></td>
-        <td><%= account.Name %></td>
-        <td><%= account.Site %></td>
-        <td><%= account.AccountType %></td>
-        <td><%= account.MainPhone %></td>
-        <td><%= account.MainFax %></td>
-        <td><%= link_to 'Show', account %></td>
-        <td><%= link_to 'Edit', edit_account_path(account) %></td>
-        <td><%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <%# @i++ %>
-      </tr>
+      <% if (i+1)!=params[:id].to_i %>
+        <tr>
+          <td onclick="chooseRow(this)"><%= (i+1)  %></td>
+          <td><%= account.Account %></td>
+          <td><%= account.Name %></td>
+          <td><%= account.Site %></td>
+          <td><%= account.AccountType %></td>
+          <td><%= account.MainPhone %></td>
+          <td><%= account.MainFax %></td>
+        </tr>
+      <% else %>
+        <tr>
+          <%= form_for(account) do |f| %>
+            <td onclick="chooseRow(this)"><%= (i+1)  %></td>
+            <td><%= f.text_field :Account %></td>
+            <td><%= f.text_field :Name %></td>
+            <td><%= f.text_field :Site %></td>
+            <td><%= f.text_field :AccountType %></td>
+            <td><%= f.text_field :MainPhone %></td>
+            <td><%= f.text_field :MainFax %></td>
+            <td><%= f.submit %></td>
+            <td><%= link_to 'Edit', edit_account_path(account) %></td>
+            <td><%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <%# @i++ %>
+          <% end %>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
